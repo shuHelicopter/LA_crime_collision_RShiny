@@ -5,7 +5,7 @@
 ###### Shiny project @ NYC Data Science Academy ######
 ######################################################
 
-library(DT)
+library(DT) # DT provides an interface for data table 
 library(dplyr)
 library(tidyr)
 library(shiny)
@@ -14,7 +14,7 @@ library(leaflet)
 library(graphics)
 library(plotly)
 library(RColorBrewer)
-library(chron)
+library(chron) # manipulate date data 
 library(wordcloud)
 
 # Download data
