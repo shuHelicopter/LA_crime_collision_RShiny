@@ -52,7 +52,7 @@ shinyServer(function(input, output){
     if(length(unique(crime_map()$AREA.NAME)) != 1){  #  'All areas' is selected by user
       gvisBarChart(areaTOTcount_df,
                    options = list(
-                     title = 'Amount of Crimes in LAPD Areas',
+                     title = 'Amount of Crimes&Collisions in LAPD Areas',
                      width = '600', 
                      height = '500',
                      legend = '{position: "top"}')
@@ -64,8 +64,8 @@ shinyServer(function(input, output){
       
       gvisLineChart(areaSEPcount_df,
                     options = list(
-                      title = 'Volume Changes of Crimes from 2011 to 2015',
-                      colors = 'red',
+                      title = 'Volume Changes of Crimes&Collisions from 2011 to 2014',
+                      colors = "['red']",
                       width = '600',
                       height = '500', 
                       legend = '{position: "top"}')
@@ -78,7 +78,7 @@ shinyServer(function(input, output){
   output$crm_tot_chg <- renderGvis({
     gvisLineChart(TOTcount_df,
                   options = list(
-                    title = 'Total Volume Changes of Crimes from 2011 to 2015',
+                    title = 'Total Volume of Crimes&Collisions 2011 - 2014',
                     width = '600',
                     height = '500',
                     legend = '{position: "top"}')
@@ -95,7 +95,7 @@ shinyServer(function(input, output){
     plot_ly(z = crime_time, 
             type = 'surface', 
             colors = 'YlOrRd') %>%
-      layout(title = "Time Distribution Analysis of Crimes", 
+      layout(title = "Time Distribution Analysis of Crimes&Collisions", 
              scene = list(
                xaxis = list(title = 'time'), 
                yaxis = list(title = 'day'), 
@@ -124,11 +124,11 @@ shinyServer(function(input, output){
   
   output$crm_sen_tm <- renderGvis({
     gvisBarChart(crm_sen_tm_df, xvar = 'tm_period', 
-                 options = list(title = 'Total Crimes in Season and Time',
+                 options = list(title = 'Total Crimes&Collisions in Season and Time',
                                 legend = '{position: "top"}',
                                 height = '600',
                                 width = '500', 
-                                colors = c('Red', 'Orange'),
+                                colors = "['Red', 'Orange']",
                                 isStacked = FALSE,
                                 bar = '{groupWidth:"50%"}'))
   })
@@ -137,10 +137,10 @@ shinyServer(function(input, output){
   # show crime status in days using bar chart
   output$crm_days_status <- renderGvis({
     gvisBarChart(daycount_df, xvar = 'Day_occ', 
-                 options = list(title = 'Total Crimes in Days',
+                 options = list(title = 'Total Crimes&Collisions in Days',
                                 width = 'auto',
                                 height = 500,
-                                colors = 'Orange', 
+                                colors = "['Orange']", 
                                 legend = "{position: 'top'}",
                                 bar="{groupWidth:'50%'}"))
   })

@@ -5,7 +5,7 @@
 ###### Shiny project @ NYC Data Science Academy ######
 ######################################################
 
-library(DT) # DT provides an interface for data table 
+library(DT)
 library(dplyr)
 library(tidyr)
 library(shiny)
@@ -14,12 +14,17 @@ library(leaflet)
 library(graphics)
 library(plotly)
 library(RColorBrewer)
-library(chron) # manipulate date data 
+library(chron)
 library(wordcloud)
 
 # Download data
 load('./data/crm_cln_df.RData')
-crimedf = crm_cln_df
+crimedf = crm_cln_df[crm_cln_df$Year_occ != 2015,] 
+# In fact, I first used data from 2011-2015 to build this shiny, adn then I found data in December 2015 
+# is missing, which frustrated me a lot. At last, I HAVE TO remove data in 2015 unitl the LA OPEN DATA 
+# updates their data, because without data in Decemeber of 2015, some conclusions are not 100 percent 
+# right. I must keep the right process of my analysis
+#
 
 crimedf1 <- crimedf[sample(nrow(crimedf), 2000), ]  # Limit observations selected for leaflet map due to efficieny
 

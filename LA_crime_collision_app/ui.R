@@ -6,7 +6,7 @@
 ######################################################
 
 shinyUI({
-  navbarPage('Los Angeles Crimes and Collisions 2011~2015 (version1.0)',
+  navbarPage('Los Angeles Crimes&Collisions 2011~2014 (version1.0)',
              theme = 'bootstrap.css',
              
              ##########################
@@ -21,9 +21,10 @@ shinyUI({
                                                   choices = c('2011' = 2011,
                                                               '2012' = 2012,
                                                               '2013' = 2013,
-                                                              '2014' = 2014,
-                                                              '2015' = 2015), 
-                                                  selected = c(2011, 2012, 2013, 2014, 2015)
+                                                              '2014' = 2014),
+                                                              #'2015' = 2015), 
+                                                  #selected = c(2011, 2012, 2013, 2014, 2015)
+                                                  selected = c(2011, 2012, 2013, 2014)
                                ),
                                
                                selectInput('CMarea', 
@@ -37,9 +38,7 @@ shinyUI({
                                            selected = 1
                                ),
                                hr(),
-                               p('Note1: Only a small part of data are displayed on the map due to the map efficiency 
-                                  and incomplete data from data source, but this will be updated when "LA Open Data"
-                                 (data source) fills new data.')
+                               p(strong('Note1: '), 'Only a part of data are displayed on the map due to browsing efficiency.')
                         ),
                         
                         column(width = 10,
@@ -57,7 +56,7 @@ shinyUI({
                                             column(width = 6,
                                                    htmlOutput('crm_tot_chg')
                                             ),
-                                            p('Note2: LAPD oversees 21 areas which you can check details on "Reference" Page.')
+                                            p(strong('Note2: '), 'LAPD oversees 21 areas which you can check details on "Reference" Page.')
                                           )
                                  )
                                )
@@ -86,7 +85,11 @@ shinyUI({
                                                    tags$li(strong('Time(X-axis):')),
                                                    p('{0 ~ 23} <-> {00:00 ~ 23:00}'),
                                                    tags$li(strong('Day(Y-axis):')),
-                                                   p('{0 ~ 6}  <-> {Sun ~ Sat}')),
+                                                   p('{0 ~ 6}  <-> {Sun ~ Sat}'),
+                                                   hr(),
+                                                   p(strong('Tips:')),
+                                                   p('You are welcomed to spin the 3D graph to explore a lot of interesting insights.')),
+                                            
                                             column(width = 9,
                                                    plotlyOutput('crm_time_3d',
                                                                 width = 'auto',
@@ -119,13 +122,21 @@ shinyUI({
                                    column(width = 10,
                                           fluidRow(
                                             column(width = 6,
-                                                   p(strong(HTML('<center> Crimes Types in Season and Time </center>'))),
+                                                   p(strong(HTML('<center> Crimes and Collisions Types in Season and Time </center>'))),
                                                    plotOutput('crm_type',
                                                               width = 'auto',
                                                               height = '500')),
                                             column(width = 6,
                                                    htmlOutput('crm_sen_tm'))
-                                          )
+                                          ),
+                                          p(('Note1: '), 'Hot season: May - Oct.; Warm season: Nov. - Apr. (Check details on "Reference" page)'),
+                                          p(('Note2: '), '•	Early morning: 4am - 8am
+                                            •	morning: 8am - 11am
+                                            •	Noon: 11am - 1pm
+                                            •	afternoon: 1pm - 5pm
+                                            •	evening: 5pm - 8 pm
+                                            •	Night: 8pm - 11am 
+                                            •	Midnight  11pm - 4am')
                                    )
                                  )
                         )
@@ -146,19 +157,26 @@ shinyUI({
                       p('Datasets in this project are provided by ', 
                         a('Los Angeles Open Data', 
                           href = 'https://data.lacity.org/browse?category=A+Safe+City&limitTo=datasets&utf8=✓'), '.'),
-                      p('This Shiny application focuses on 21 areas encompassing 467 square miles oversaw by LAPD. 
+                      p('This Shiny application focuses on 21 areas oversaw by LAPD. 
                         You can find more information about the LAPD ', 
                         a('here', href = 'http://www.lapdonline.org/inside_the_lapd/content_basic_view/1063', '.')),
                       hr(),
                       fluidRow(
                         column(width = 5,
                                p(HTML('<center> 21 Areas Oversaw by LAPD </center>')),
-                               img(src = 'LAPD_Area.jpg', position = 'left', height = 'auto', width = 400)),
+                               img(src = 'LAPD_Area.jpg', position = 'left', height = 'auto', width = 400),
+                               p('** You can check all details about 21 Offices of Operations of LAPD ', 
+                                 a('here', href = 'https://en.wikipedia.org/wiki/Los_Angeles_Police_Department', '.'))
+                               ),
                         column(width = 7,
                                img(src = 'LA_Temp.png', position = 'right', height = 'auto', width = 660),
-                               p('** Temperature in Los Angeles are really stable all the year round, so a year 
-                                 is divided into two seasons, hot and warm, according to the historical record. 
-                                 Hot season is from May to October, and warm season consists of other months.')
+                               p('** The temperature in Los Angeles is very stable all the year round, so one year is divided 
+                                 into two seasons, hot and warm, instead of general four seasons in our analysis. This
+                                 division is based on historical climate data shown above. In the above chart, 
+                                 three indexes ("Average Hight", "Daily Mean", and "Average Low") are compared with 
+                                 the corresponding monthly average value. Hot season is from May to October with value 
+                                 of three indexes below average, and warm season consists of other months with value 
+                                 of three indexes above average')
                         )
                       )
              ),
@@ -167,10 +185,10 @@ shinyUI({
              ########## ABOUT #########
              tabPanel('About',
                       h4(strong('About the Site:')),
-                      p('This Shiny Visualization project is desigend for people who care about their safety in Los Angeles. 
-                        Three features of crime were investigated: geographical distribution, crime and collision time, and 
-                        crime and collision types. This website included detail information about crime and collision type, 
-                        address, location, time, and date from 2011 to 2015. Users are welcomed to explore here and know more 
+                      p('This Shiny Visualization project is designed for people who care about their safety in Los Angeles. 
+                        Three features of crime&collision were investigated: geographical distribution, crime and collision time, and 
+                        crime and collision types. This website includes detailed information about crime and collision types, 
+                        addresses, locations, time, and date from 2011 to 2014. Users are welcomed to explore here and know more 
                         about crime and collision in Los Angeles. '),
                       br(),
                       hr(),
@@ -185,7 +203,7 @@ shinyUI({
                                  is passionate about combining innovative ideas with advanced quantitative approaches using 
                                  statistical analyses and machine learning. In college, Shu interned as a strategy analyst in 
                                  the world’s largest building material company, Lafarge. In addition, Shu once established a 
-                                 simulative e-payment company with 8 team members and won the silver medal(top 1%) in the 
+                                 simulative e-pack company with 6 team members and won the silver medal(top 1%) in the 
                                  national competition among over 20,000 teams. In his spare time, Shu enjoys running and is 
                                  currently training for his first Marathon.')
                         )
